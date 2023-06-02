@@ -1,0 +1,101 @@
+@font-face {
+    font-family: averta standard;
+    font-style: normal;
+    font-weight: 400;
+    src: local("Averta Standard"),
+      url(https://fonts.cdnfonts.com/s/14876/AvertaStandard-Regular.woff)
+        format("woff");
+  }
+  
+* {
+  font-family: "Averta Standard", sans-serif;
+}
+
+button{
+    all: unset;
+}
+
+.todo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  &__text {
+    font-size: 50px;
+    margin-bottom: 100px;
+  }
+  img {
+    width: 80%;
+    max-width: 1000px;
+  }
+  &__todoImg {
+  }
+}
+
+.mainApp {
+  width: 100%;
+  position: relative;
+
+  button {
+    padding: 10px;
+    width: 60px;
+    text-align: center;
+  }
+  &--log {
+    border-radius: 0 0 10px 0;
+    background-color: #d9d9d9;
+  }
+  &__clock {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 280px;
+    margin: 100px auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    justify-content: center;
+    padding: 20px;
+    &--currentDate {
+      font-size: 25px;
+      margin: 0;
+    }
+    &--currentTime {
+      font-size: 50px;
+      margin: 0;
+    }
+  }
+}
+
+.todoItem {
+  border: 1px solid rgba(0,0,0,0.5);
+  border-radius: 5px;
+  width: 77.5%;
+  max-width: 1000px;
+  height: 200px;
+
+  td{
+    text-align: center;
+  }
+  &__title{
+    background-color: aliceblue;
+    height: 80px;
+    
+  }
+  &__description{
+
+  }
+  &expireDate{
+
+  }
+
+}

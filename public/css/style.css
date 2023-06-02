@@ -1,0 +1,85 @@
+@font-face {
+  font-family: averta standard;
+  font-style: normal;
+  font-weight: 400;
+  src: local("Averta Standard"), url(https://fonts.cdnfonts.com/s/14876/AvertaStandard-Regular.woff) format("woff");
+}
+* {
+  font-family: "Averta Standard", sans-serif;
+}
+
+button {
+  all: unset;
+}
+
+.todo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.todo__items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.todo__text {
+  font-size: 50px;
+  margin-bottom: 100px;
+}
+.todo img {
+  width: 80%;
+  max-width: 1000px;
+}
+.mainApp {
+  width: 100%;
+  position: relative;
+}
+.mainApp button {
+  padding: 10px;
+  width: 60px;
+  text-align: center;
+}
+.mainApp--log {
+  border-radius: 0 0 10px 0;
+  background-color: #d9d9d9;
+}
+.mainApp__clock {
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 280px;
+  margin: 100px auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  justify-content: center;
+  padding: 20px;
+}
+.mainApp__clock--currentDate {
+  font-size: 25px;
+  margin: 0;
+}
+.mainApp__clock--currentTime {
+  font-size: 50px;
+  margin: 0;
+}
+
+.todoItem {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  width: 77.5%;
+  max-width: 1000px;
+  height: 200px;
+}
+.todoItem td {
+  text-align: center;
+}
+.todoItem__title {
+  background-color: aliceblue;
+  height: 80px;
+}
+
+/*# sourceMappingURL=style.css.map */
