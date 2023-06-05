@@ -12,6 +12,10 @@ button {
   all: unset;
 }
 
+td {
+  text-align: center;
+}
+
 .todo {
   display: flex;
   flex-direction: column;
@@ -32,6 +36,17 @@ button {
 .todo img {
   width: 100%;
   max-width: 1040px;
+}
+.todo__filter {
+  border: 1px solid black;
+  border-collapse: separate;
+  border-radius: 5px;
+  margin: 60px 0;
+  text-align: center;
+  padding: 20px;
+}
+.todo__filter--text {
+  font-size: 18px;
 }
 
 .mainApp {
@@ -80,9 +95,6 @@ button {
   position: relative;
   filter: drop-shadow(0 20px 20px rgba(0, 0, 0, 0.1));
 }
-.todoItem td {
-  text-align: center;
-}
 .todoItem__head {
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
@@ -125,6 +137,75 @@ button {
   position: absolute;
   top: 0;
   right: -73px;
+}
+
+.filter__table {
+  border-spacing: 0 10px;
+  padding: 0px;
+  border-collapse: separate;
+}
+.filter__table--category {
+  display: grid;
+}
+.filter__table--progress {
+  width: 600px;
+  margin: 0 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 50px;
+}
+.filter__table--progress--undone {
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.filter__table--progress--undone--active {
+  background-color: #d9d9d9;
+}
+.filter__table--progress--finished {
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.filter__table--progress--finished--active {
+  background-color: #d9d9d9;
+}
+.filter__table--progress--progressing {
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.filter__table--progress--progressing--active {
+  background-color: #d9d9d9;
+}
+.filter__table--progress--beforeStart {
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.filter__table--progress--beforeStart--active {
+  background-color: #d9d9d9;
 }
 
 /*# sourceMappingURL=style.css.map */
