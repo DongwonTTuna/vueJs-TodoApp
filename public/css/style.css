@@ -23,16 +23,17 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 50px;
 }
 .todo__text {
   font-size: 50px;
   margin-bottom: 100px;
 }
 .todo img {
-  width: 80%;
-  max-width: 1000px;
+  width: 100%;
+  max-width: 1040px;
 }
+
 .mainApp {
   width: 100%;
   position: relative;
@@ -68,18 +69,62 @@ button {
 }
 
 .todoItem {
+  border-collapse: separate;
   border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
-  width: 77.5%;
+  border-radius: 5px !important;
+  width: 100%;
   max-width: 1000px;
   height: 200px;
+  border-spacing: 0;
+  background-color: white;
+  position: relative;
+  filter: drop-shadow(0 20px 20px rgba(0, 0, 0, 0.1));
 }
 .todoItem td {
   text-align: center;
 }
+.todoItem__head {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+.todoItem__titleTD {
+  width: 200px;
+}
 .todoItem__title {
-  background-color: aliceblue;
-  height: 80px;
+  height: 40px;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  border-radius: 10px;
+}
+.todoItem__description {
+  font-size: 24px;
+}
+.todoItem__expireTD {
+  width: 160px;
+}
+.todoItem__expireDate {
+  border-left: 1px solid rgba(0, 0, 0, 0.5);
+}
+.todoItem__category {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 45px;
+  border-radius: 5px 0 10px 0px;
+  filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.08));
+}
+.todoItem__category:hover {
+  z-index: 100;
+}
+.todoItem__progress {
+  position: absolute;
+  top: 0;
+  right: -73px;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,18 +1,18 @@
 @font-face {
-    font-family: averta standard;
-    font-style: normal;
-    font-weight: 400;
-    src: local("Averta Standard"),
-      url(https://fonts.cdnfonts.com/s/14876/AvertaStandard-Regular.woff)
-        format("woff");
-  }
-  
+  font-family: averta standard;
+  font-style: normal;
+  font-weight: 400;
+  src: local("Averta Standard"),
+    url(https://fonts.cdnfonts.com/s/14876/AvertaStandard-Regular.woff)
+      format("woff");
+}
+
 * {
   font-family: "Averta Standard", sans-serif;
 }
 
-button{
-    all: unset;
+button {
+  all: unset;
 }
 
 .todo {
@@ -26,7 +26,7 @@ button{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 50px;
   }
 
   &__text {
@@ -34,10 +34,8 @@ button{
     margin-bottom: 100px;
   }
   img {
-    width: 80%;
-    max-width: 1000px;
-  }
-  &__todoImg {
+    width: 100%;
+    max-width: 1040px;
   }
 }
 
@@ -77,25 +75,61 @@ button{
 }
 
 .todoItem {
-  border: 1px solid rgba(0,0,0,0.5);
-  border-radius: 5px;
-  width: 77.5%;
+  border-collapse: separate;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 5px !important;
+  width: 100%;
   max-width: 1000px;
   height: 200px;
+  border-spacing: 0;
+  background-color: white;
+  position: relative;
+  filter: drop-shadow(0 20px 20px rgba(0, 0, 0, 0.1));
 
-  td{
+  td {
     text-align: center;
   }
-  &__title{
-    background-color: aliceblue;
-    height: 80px;
-    
+  &__head {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   }
-  &__description{
-
+  &__titleTD {
+    width: 200px;
   }
-  &expireDate{
-
+  &__title {
+    height: 40px;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    border-radius: 10px;
   }
-
+  &__description {
+    font-size: 24px;
+  }
+  &__expireTD {
+    width: 160px;
+  }
+  &__expireDate {
+    border-left: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  &__category {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 45px;
+    border-radius: 5px 0 10px 0px;
+    filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.08));
+  }
+  &__category:hover {
+    z-index: 100;
+  }
+  &__progress {
+    position: absolute;
+    top: 0;
+    right: -73px;
+  }
 }

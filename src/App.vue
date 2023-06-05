@@ -14,7 +14,13 @@
           :todoItem="{
             title: 'title',
             description: 'description',
-            expireDate: new Date()
+            expireDate: new Date(),
+            progress: 'beforeStart',
+            category: [
+              { name: 'category1', color: '#f3cc92' },
+              { name: 'category2', color: '#f3ecee' },
+              { name: 'category3', color: '#636063' },
+            ],
           }"
           />
         <img
