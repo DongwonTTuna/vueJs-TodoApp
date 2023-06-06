@@ -17,19 +17,35 @@
                 v-for="category in categories"
                 class="filter__table--category--item"
               >
-                {{ category }}
+                {{ category.name }}
               </div>
             </td>
           </tr>
           <tr class="filter__table__progress">
             <td class="filter__table--progress--text">Progress</td>
             <td class="filter__table--progress">
-              <div @click="filterTodoByProgress(0)" class="filter__table--progress--undone">Undone</div>
-              <div @click="filterTodoByProgress(1)" class="filter__table--progress--finished">Finished</div>
-              <div @click="filterTodoByProgress(2)" class="filter__table--progress--progressing">
+              <div
+                @click="filterTodoByProgress(0, $event)"
+                class="filter__table--progress--undone"
+              >
+                Undone
+              </div>
+              <div
+                @click="filterTodoByProgress(1, $event)"
+                class="filter__table--progress--finished"
+              >
+                Finished
+              </div>
+              <div
+                @click="filterTodoByProgress(2, $event)"
+                class="filter__table--progress--progressing"
+              >
                 Progressing
               </div>
-              <div @click="filterTodoByProgress(3)" class="filter__table--progress--beforeStart">
+              <div
+                @click="filterTodoByProgress(3, $event)"
+                class="filter__table--progress--beforeStart"
+              >
                 BeforeStart
               </div>
             </td>
@@ -61,9 +77,7 @@
 </template>
 
 <script lang="ts">
-
 import TodoItemComponent from "./components/todoItem.vue";
-
 
 type Progress = "Undone" | "Finished" | "Progressing" | "beforeStart";
 interface Category {
@@ -84,12 +98,13 @@ export default {
   data() {
     return {
       currentDate: new Date(),
-      categories: [],
-      todoItems: []
+      categories: [{ color: "blue", name: "General"},{ color: "orange", name: "Important"},{ color: "red", name: "Emergency"}],
+      todoItems: [],
+      backupedTodoItems: [],
     };
   },
   components: {
-    "TodoItem" : TodoItemComponent,
+    TodoItem: TodoItemComponent,
   },
   computed: {
     formattedDate() {
@@ -122,19 +137,33 @@ export default {
       console.log("removeTodo");
     },
     editTodo(todoIndex: number, todoItem: TodoItem) {
-      console.log("editTodo")
+      console.log("editTodo");
     },
-    filterTodoByProgress(progress: number){
-      
-      switch(progress){
-        case 0: return console.log("Undone");
-        case 1: return console.log("Finished");
-        case 2: return console.log("Progressing");
-        case 3: return console.log("beforeStart");
+    filterTodoByProgress(progress: number, event: Event) {
+      const filteringFunction = (filterOpt: Progress, event: Event) => {
+        this.todoItems = this.backupedTodoItems.filter((todoItem) => {
+          todoItem!.progress === filterOpt;
+        });
+        const helem = event.target as HTMLElement;
+        if (helem.classList.contains("--active")) {
+          helem.classList.remove("--active");
+        } else {
+          helem.classList.add("--active");
+        }
+      };
+      if (event === null) return;
+      switch (progress) {
+        case 0:
+          return filteringFunction("Undone", event);
+        case 1:
+          return filteringFunction("Finished", event);
+        case 2:
+          return filteringFunction("Progressing", event);
+        case 3:
+          return filteringFunction("beforeStart", event);
       }
-
-    }
-  }
+    },
+  },
 };
 </script>
 
