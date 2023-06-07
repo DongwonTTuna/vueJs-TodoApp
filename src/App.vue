@@ -1,6 +1,6 @@
 <template>
   <div class="mainApp">
-    <button class="mainApp--log">log</button>
+    <button @click="goGoogle" class="mainApp--log">google</button>
     <div class="mainApp__clock">
       <p class="mainApp__clock--currentDate">{{ formattedDate }}</p>
       <p class="mainApp__clock--currentTime">{{ formattedTime }}</p>
@@ -10,44 +10,59 @@
       <div class="todo__filter">
         <div class="todo__filter--text">filtering</div>
         <table class="filter__table">
-          <tr class="filter__table--category">
-            <td class="filter__table--category--text">Category</td>
-            <td class="filter__table--category">
-              <div
-                v-for="category in categories"
-                class="filter__table--category--item"
-              >
-                {{ category.name }}
-              </div>
-            </td>
-          </tr>
           <tr class="filter__table__progress">
             <td class="filter__table--progress--text">Progress</td>
             <td class="filter__table--progress">
-              <div
-                @click="filterTodoByProgress(0, $event)"
-                class="filter__table--progress--undone"
+              <button
+                @click="currentProgress = 'Undone'"
+                :class="
+                  currentProgress === 'Undone'
+                    ? 'filter__table--progress--undone--active'
+                    : 'filter__table--progress--undone'
+                "
               >
                 Undone
-              </div>
-              <div
-                @click="filterTodoByProgress(1, $event)"
-                class="filter__table--progress--finished"
+              </button>
+              <button
+                @click="currentProgress = 'Finished'"
+                :class="
+                  currentProgress === 'Finished'
+                    ? 'filter__table--progress--finished--active'
+                    : 'filter__table--progress--finished'
+                "
               >
                 Finished
-              </div>
-              <div
-                @click="filterTodoByProgress(2, $event)"
-                class="filter__table--progress--progressing"
+              </button>
+              <button
+                @click="currentProgress = 'Progressing'"
+                :class="
+                  currentProgress === 'Progressing'
+                    ? 'filter__table--progress--progressing--active'
+                    : 'filter__table--progress--progressing'
+                "
               >
                 Progressing
-              </div>
-              <div
-                @click="filterTodoByProgress(3, $event)"
-                class="filter__table--progress--beforeStart"
+              </button>
+              <button
+                @click="currentProgress = 'beforeStart'"
+                :class="
+                  currentProgress === 'beforeStart'
+                    ? 'filter__table--progress--beforeStart--active'
+                    : 'filter__table--progress--beforeStart'
+                "
               >
                 BeforeStart
-              </div>
+              </button>
+              <button
+                @click="currentProgress = 'All'"
+                :class="
+                  currentProgress === 'All'
+                    ? 'filter__table--progress--All--active'
+                    : 'filter__table--progress--All'
+                "
+              >
+                All
+              </button>
             </td>
           </tr>
         </table>
@@ -55,22 +70,16 @@
 
       <div class="todo__items">
         <TodoItem
-          v-for="item in 5"
+          v-for="item in filteredTodoItems"
           :key="item"
-          :todoItem="{
-            title: 'title',
-            description: 'description',
-            expireDate: new Date(),
-            progress: 'beforeStart',
-            category: categories,
-          }"
+          :todoItem="item"
+          @removeTodoItem="removeTodoItem(item.id)"
         />
-        <img
-          class="addTodo"
-          loading="lazy"
-          src="/images/todo/addNew.png"
-          alt="addItem"
-        />
+        <div
+          @click="addNewTodoItem"
+          :style="{ backgroundImage: 'url(' + imageUrl + ')' }"
+          class="image-container"
+        ></div>
       </div>
     </div>
   </div>
@@ -79,12 +88,13 @@
 <script lang="ts">
 import TodoItemComponent from "./components/todoItem.vue";
 
-type Progress = "Undone" | "Finished" | "Progressing" | "beforeStart";
+type Progress = "Undone" | "Finished" | "Progressing" | "beforeStart" | "All";
 interface Category {
   color: string;
   name: string;
 }
 interface TodoItem {
+  id: number;
   title: string;
   description: string;
   category: Array<Category>;
@@ -97,10 +107,56 @@ export default {
   name: "App",
   data() {
     return {
+      currentProgress: "All",
+      imageUrl: "/images/todo/addNew.png",
       currentDate: new Date(),
-      categories: [{ color: "blue", name: "General"},{ color: "orange", name: "Important"},{ color: "red", name: "Emergency"}],
-      todoItems: [],
-      backupedTodoItems: [],
+      categories: [
+        { color: "blue", name: "General" },
+        { color: "orange", name: "Important" },
+        { color: "red", name: "Emergency" },
+      ],
+      todoItems: [
+        {
+          id: 0,
+          title: "title",
+          description: "description",
+          expireDate: new Date(),
+          progress: "beforeStart",
+          category: this.categories,
+        },
+        {
+          id: 1,
+          title: "title",
+          description: "description",
+          expireDate: new Date(),
+          progress: "Progressing",
+          category: this.categories,
+        },
+        {
+          id: 3,
+          title: "title",
+          description: "description",
+          expireDate: new Date(),
+          progress: "beforeStart",
+          category: this.categories,
+        },
+        {
+          id: 4,
+          title: "title",
+          description: "description",
+          expireDate: new Date(),
+          progress: "Finished",
+          category: this.categories,
+        },
+        {
+          id: 5,
+          title: "title",
+          description: "description",
+          expireDate: new Date(),
+          progress: "Undone",
+          category: this.categories,
+        },
+      ],
     };
   },
   components: {
@@ -123,6 +179,13 @@ export default {
         hour12: true,
       });
     },
+    filteredTodoItems() {
+      return this.currentProgress === "All"
+        ? this.todoItems
+        : this.todoItems.filter(
+            (item) => item.progress === this.currentProgress
+          );
+    },
   },
   mounted() {
     setInterval(() => {
@@ -130,38 +193,25 @@ export default {
     }, 1000);
   },
   methods: {
-    addTodo(todoIndex: number, todoItem: TodoItem) {
-      console.log("addTodo");
+    addNewTodoItem() {
+      const id = Math.max(...this.todoItems.map((item) => item.id)) + 1;
+
+      this.todoItems.push({
+        id: id,
+        title: "title",
+        description: "description",
+        expireDate: new Date(),
+        progress: this.currentProgress,
+        category: { name: "General", color: "blue" },
+      });
     },
-    removeTodo(todoIndex: number, todoItem: TodoItem) {
-      console.log("removeTodo");
+    goGoogle() {
+      window.location.href = "http://google.com";
     },
-    editTodo(todoIndex: number, todoItem: TodoItem) {
-      console.log("editTodo");
-    },
-    filterTodoByProgress(progress: number, event: Event) {
-      const filteringFunction = (filterOpt: Progress, event: Event) => {
-        this.todoItems = this.backupedTodoItems.filter((todoItem) => {
-          todoItem!.progress === filterOpt;
-        });
-        const helem = event.target as HTMLElement;
-        if (helem.classList.contains("--active")) {
-          helem.classList.remove("--active");
-        } else {
-          helem.classList.add("--active");
-        }
-      };
-      if (event === null) return;
-      switch (progress) {
-        case 0:
-          return filteringFunction("Undone", event);
-        case 1:
-          return filteringFunction("Finished", event);
-        case 2:
-          return filteringFunction("Progressing", event);
-        case 3:
-          return filteringFunction("beforeStart", event);
-      }
+    removeTodoItem(todoItemId: number) {
+      this.todoItems = this.todoItems.filter((todoItem) => {
+        return todoItem.id !== todoItemId;
+      });
     },
   },
 };

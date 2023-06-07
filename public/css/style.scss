@@ -47,7 +47,7 @@ td {
     margin: 60px 0;
     text-align: center;
     padding: 20px;
-    &--text{
+    &--text {
       font-size: 18px;
       margin-bottom: 20px;
     }
@@ -101,6 +101,25 @@ td {
   position: relative;
   filter: drop-shadow(0 20px 20px rgba(0, 0, 0, 0.1));
 
+  &__buttons {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    button {
+      height: 10px;
+      width: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &--remove {
+      opacity: 0.5;
+      border-radius: 5px;
+      background-color: #ff708a;
+      color: white;
+      cursor: pointer;
+    }
+  }
   &__head {
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   }
@@ -153,17 +172,17 @@ td {
 
   &--category {
     display: grid;
-
   }
+
   &--progress {
     width: 600px;
     margin: 0 50px;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    gap: 50px;
+    gap: 25px;
 
-    &--undone {
+    button {
       width: 100px;
       height: 40px;
       border-radius: 5px;
@@ -172,48 +191,40 @@ td {
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      &--active {
-        background-color: #d9d9d9;
-      }
+      padding: 0 20px;
     }
-    &--finished {
-      width: 100px;
-      height: 40px;
-      border-radius: 5px;
-      background-color: #f5f5f5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      &--active {
-        background-color: #d9d9d9;
-      }
+
+    &--undone--active {
+      background-color: rgba(129, 126, 130, 0.94) !important;
     }
-    &--progressing {
-      width: 100px;
-      height: 40px;
-      border-radius: 5px;
-      background-color: #f5f5f5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      &--active {
-        background-color: #d9d9d9;
-      }
+    &--finished--active {
+      background-color: rgb(243, 229, 233) !important;
     }
-    &--beforeStart {
-      width: 100px;
-      height: 40px;
-      border-radius: 5px;
-      background-color: #f5f5f5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      &--active {
-        background-color: #d9d9d9;
-      }
+    &--progressing--active {
+        background-color: rgb(243, 204, 146) !important;
+    }
+    &--beforeStart--active {
+        background-color: rgb(210, 232, 251) !important;
+    }
+    &--All--active{
+      background-color: white !important;
+      border: 1px solid gray;
     }
   }
+}
+.image-container {
+  width: 900px;
+  height: 300px;
+  background-size: 100%;
+  cursor: pointer;
+}
+input {
+  font-size: 16px;
+  width: 150px;
+  height: 40px;
+}
+textarea {
+  font-size: 22px;
+  width: 500px;
+  height: 150px;
 }
